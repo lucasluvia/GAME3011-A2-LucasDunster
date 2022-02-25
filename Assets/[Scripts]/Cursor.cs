@@ -15,10 +15,15 @@ public class Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Vector2 pos;
-        //RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, myCanvas.worldCamera, out pos);
-        //transform.position = myCanvas.transform.TransformPoint(pos);
-        
+        MoveCursor();
+    }
+
+    private void MoveCursor()
+    {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(myCanvas.transform as RectTransform, Input.mousePosition, myCanvas.worldCamera, out pos);
+        transform.position = myCanvas.transform.TransformPoint(pos);
+
         RectTransform mrect = GetComponent<RectTransform>();
         Vector2 apos = mrect.anchoredPosition;
         float xpos = apos.x;
@@ -28,7 +33,6 @@ public class Cursor : MonoBehaviour
         apos.x = xpos;
         apos.y = ypos;
         mrect.anchoredPosition = apos;
-
-
     }
+
 }
