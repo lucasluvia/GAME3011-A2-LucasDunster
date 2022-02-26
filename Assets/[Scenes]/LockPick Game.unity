@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1827681940}
   circleImage: {fileID: 347788678}
+  isSelected: 0
 --- !u!58 &112913691
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -742,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -137, y: 146}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &596110785

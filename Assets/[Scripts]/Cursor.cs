@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Cursor : MonoBehaviour
+public class Cursor : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] Canvas myCanvas;
     [SerializeField] Image circleImage;
 
+    public bool isSelected;
+
+    private Color UnselectedColour = Color.cyan;
     private Color NoHitColour = Color.white;
     private Color OuterHitColour = new Color(0.6f, 1.0f, 0.6f, 1f);
     private Color InnerHitColour = new Color(0.0f, 1.0f, 0.0f, 1f);
@@ -24,7 +28,18 @@ public class Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveCursor();
+        if (isSelected)
+            MoveCursor();
+        else
+        {
+            SetImageColour(UnselectedColour);
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isSelected = true;
+        SetImageColour(NoHitColour);
     }
 
     private void MoveCursor()
