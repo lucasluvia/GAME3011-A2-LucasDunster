@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 112913689}
   - component: {fileID: 112913690}
   - component: {fileID: 112913691}
+  - component: {fileID: 112913692}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
@@ -175,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 1827681940}
+  circleImage: {fileID: 347788678}
 --- !u!58 &112913691
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,6 +193,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 50
+--- !u!50 &112913692
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112913688}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &199062126
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +990,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationTransform: {fileID: 2052188876}
+  lockTransform: {fileID: 2061217595}
   difficulty: 0
+  inUnlockRange: 0
+  unlockRange: 5
+  RotationEnabled: 0
+  TargetRotation: {x: 0, y: 0, z: 0}
+  currentLockAngle: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1134709874}
   - component: {fileID: 1134709875}
+  - component: {fileID: 1134709876}
   m_Layer: 0
   m_Name: InnerTarget
   m_TagString: InnerTarget
@@ -1377,7 +1407,28 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 20
+--- !u!50 &1134709876
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134709873}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1146447231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,6 +1590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1254947446}
   - component: {fileID: 1254947447}
+  - component: {fileID: 1254947448}
   m_Layer: 0
   m_Name: OuterTarget
   m_TagString: OuterTarget
@@ -1576,6 +1628,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 100
+--- !u!50 &1254947448
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254947445}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1827681937
 GameObject:
   m_ObjectHideFlags: 0

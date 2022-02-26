@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cursor : MonoBehaviour
 {
     [SerializeField] Canvas myCanvas;
+    [SerializeField] Image circleImage;
+
+    private Color NoHitColour = Color.white;
+    private Color OuterHitColour = new Color(0.6f, 1.0f, 0.6f, 1f);
+    private Color InnerHitColour = new Color(0.0f, 1.0f, 0.0f, 1f);
+
+    private GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameController = GameObject.Find("GameplayPanel").GetComponent<GameController>();
+        SetImageColour(NoHitColour);
     }
 
     // Update is called once per frame
@@ -35,4 +44,35 @@ public class Cursor : MonoBehaviour
         mrect.anchoredPosition = apos;
     }
 
+    private void SetImageColour(Color newColour)
+    {
+        circleImage.color = newColour;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "InnerTarget")
+        {
+            SetImageColour(InnerHitColour);
+
+        }
+        if(other.gameObject.tag == "OuterTarget")
+        {
+            SetImageColour(OuterHitColour);
+            gameController.RotationEnabled = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "InnerTarget")
+        {
+            SetImageColour(OuterHitColour);
+        }
+        if (other.gameObject.tag == "OuterTarget")
+        {
+            SetImageColour(NoHitColour);
+            gameController.RotationEnabled = false;
+        }
+    }
 }
