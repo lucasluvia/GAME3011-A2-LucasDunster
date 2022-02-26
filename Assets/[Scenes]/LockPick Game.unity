@@ -994,9 +994,8 @@ MonoBehaviour:
   difficulty: 0
   inUnlockRange: 0
   unlockRange: 5
+  rotationSpeed: 40
   RotationEnabled: 0
-  TargetRotation: {x: 0, y: 0, z: 0}
-  currentLockAngle: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,7 +1406,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 5
 --- !u!50 &1134709876
 Rigidbody2D:
   serializedVersion: 4

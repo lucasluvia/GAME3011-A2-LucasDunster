@@ -20,15 +20,20 @@ public class GameController : MonoBehaviour
     [SerializeField] Difficulty difficulty;
     [SerializeField] bool inUnlockRange;
     [SerializeField] float unlockRange = 5.0f;
+    [SerializeField] float rotationSpeed = 15.0f;
 
     public bool RotationEnabled;
 
-    public Vector3 TargetRotation;
-    public float currentLockAngle = 0;
+    private Vector3 TargetRotation;
+    private float currentLockAngle = 0;
+    private int locksRemaining;
 
     void Start()
     {
-        PlaceDestination();
+        //PlaceDestination();
+        SetTotalLockCount();
+        SetNewDestination();
+        SetTargetPosition();
     }
 
     void Update()
@@ -37,7 +42,12 @@ public class GameController : MonoBehaviour
         {
             if(CheckUnlockRange())
             {
-                Debug.Log("In Range");
+                if(locksRemaining > 1)
+                    DecrementLocksRemaining();
+                else
+                {
+                    Debug.Log("Winner");
+                }
             }
             else
             {
@@ -53,12 +63,12 @@ public class GameController : MonoBehaviour
 
         if (RotationEnabled)
         {
-            currentLockAngle -= Time.deltaTime * 10;
+            currentLockAngle -= Time.deltaTime * rotationSpeed;
             if (currentLockAngle < -360)
                 currentLockAngle = -360;
         }
         else if (currentLockAngle < 0)
-            currentLockAngle += Time.deltaTime * 10;
+            currentLockAngle += Time.deltaTime * rotationSpeed;
         else
             currentLockAngle = 0;
 
@@ -72,6 +82,40 @@ public class GameController : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    private void SetTotalLockCount()
+    {
+        switch (difficulty)
+        {
+            case Difficulty.EASY:
+                locksRemaining = 1;
+                break;
+            case Difficulty.MEDIUM:
+                locksRemaining = 3;
+                break;
+            case Difficulty.HARD:
+                locksRemaining = 5;
+                break;
+        }
+    }
+
+    private void SetNewDestination()
+    {
+        TargetRotation = new Vector3(destinationTransform.rotation.x, destinationTransform.rotation.y, Random.Range(-10, -350));
+        destinationTransform.rotation = Quaternion.Euler(TargetRotation);
+    }
+
+    private void DecrementLocksRemaining()
+    {
+        locksRemaining--;
+        SetNewDestination();
+        SetTargetPosition();
+    }
+
+    private void SetTargetPosition()
+    {
+
     }
 
     private void PlaceDestination()
