@@ -52,7 +52,11 @@ public class GameController : MonoBehaviour
     {
 
         if (RotationEnabled)
+        {
             currentLockAngle -= Time.deltaTime * 10;
+            if (currentLockAngle < -360)
+                currentLockAngle = -360;
+        }
         else if (currentLockAngle < 0)
             currentLockAngle += Time.deltaTime * 10;
         else
