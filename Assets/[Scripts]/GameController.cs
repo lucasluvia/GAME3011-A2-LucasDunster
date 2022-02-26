@@ -18,13 +18,13 @@ public class GameController : MonoBehaviour
     [SerializeField] Transform destinationTransform;
     [SerializeField] Transform lockTransform;
     [SerializeField] RectTransform targetTransform;
-    [SerializeField] Difficulty difficulty;
     [SerializeField] bool inUnlockRange;
-    [SerializeField] float unlockRange = 5.0f;
     [SerializeField] int remainingPicks = 5;
     
     float rotationSpeed;
 
+    public Difficulty difficulty;
+    public float unlockRange = 5.0f;
     public bool RotationEnabled;
 
 
@@ -52,6 +52,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ResetCursor();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (CheckUnlockRange())
             {
@@ -203,6 +207,16 @@ public class GameController : MonoBehaviour
     {
         locksRemainingText.text = locksRemaining.ToString();
         remainingPicksText.text = remainingPicks.ToString();
+    }
+
+    public void RestartMinigame()
+    {
+        SetRotationSpeed();
+        SetTotalLockCount();
+        SetNewDestination();
+        SetTargetPosition();
+
+        UpdateTextUI();
     }
 
     //public void AddToPointTracker(int pointsToAdd)

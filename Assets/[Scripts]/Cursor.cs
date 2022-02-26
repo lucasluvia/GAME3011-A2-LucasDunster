@@ -28,7 +28,8 @@ public class Cursor : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
-        if (isSelected)
+        
+        if (isSelected) 
             MoveCursor();
         else
         {
