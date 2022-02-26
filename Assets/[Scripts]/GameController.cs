@@ -21,18 +21,21 @@ public class GameController : MonoBehaviour
     [SerializeField] Difficulty difficulty;
     [SerializeField] bool inUnlockRange;
     [SerializeField] float unlockRange = 5.0f;
+    [SerializeField] int remainingPicks = 5;
     
     float rotationSpeed;
 
     public bool RotationEnabled;
 
-    public int xVal;
-    public int yVal;
 
     private Cursor cursor;
     private Vector3 TargetRotation;
     private float currentLockAngle = 0;
     private int locksRemaining;
+
+    [Header("UI Text")]
+    [SerializeField] TextMeshProUGUI locksRemainingText;
+    [SerializeField] TextMeshProUGUI remainingPicksText;
 
     void Start()
     {
@@ -42,6 +45,8 @@ public class GameController : MonoBehaviour
         SetTotalLockCount();
         SetNewDestination();
         SetTargetPosition();
+
+        UpdateTextUI();
     }
 
     void Update()
@@ -54,12 +59,17 @@ public class GameController : MonoBehaviour
                     DecrementLocksRemaining();
                 else
                 {
-                    Debug.Log("Winner");
+                    EndGameState(true);
                 }
             }
             else
             {
-                Debug.Log("Not In Range");
+                if(remainingPicks > 1)
+                    DecrementPicks();
+                else
+                {
+                    EndGameState(false);
+                }
             }
         }
 
@@ -113,13 +123,13 @@ public class GameController : MonoBehaviour
         switch (difficulty)
         {
             case Difficulty.EASY:
-                rotationSpeed = 15;
+                rotationSpeed = 25;
                 break;
             case Difficulty.MEDIUM:
-                rotationSpeed = 30;
+                rotationSpeed = 50;
                 break;
             case Difficulty.HARD:
-                rotationSpeed = 50;
+                rotationSpeed = 75;
                 break;
         }
     }
@@ -139,6 +149,13 @@ public class GameController : MonoBehaviour
         lockTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         currentLockAngle = 0;
         RotationEnabled = false;
+        UpdateTextUI();
+    }
+
+    private void DecrementPicks()
+    {
+        remainingPicks--;
+        UpdateTextUI();
     }
 
     private void ResetCursor()
@@ -149,8 +166,8 @@ public class GameController : MonoBehaviour
 
     private void SetTargetPosition()
     {
-        xVal = Random.Range(-210, 210);
-        yVal = Random.Range(-210, 210);
+        int xVal = Random.Range(-210, 210);
+        int yVal = Random.Range(-210, 210);
 
         if ((xVal < 160 && xVal > -160) && (yVal < 160 && yVal > -160))
         {
@@ -168,6 +185,25 @@ public class GameController : MonoBehaviour
         targetTransform.anchoredPosition = new Vector3(xVal, yVal, 0);
     }
 
+    private void EndGameState(bool Result)
+    {
+        if (Result)
+        {
+            locksRemaining = 0;
+        }
+        else
+        {
+            remainingPicks = 0;
+        }
+
+        UpdateTextUI();
+    }
+
+    private void UpdateTextUI()
+    {
+        locksRemainingText.text = locksRemaining.ToString();
+        remainingPicksText.text = remainingPicks.ToString();
+    }
 
     //public void AddToPointTracker(int pointsToAdd)
     //{
