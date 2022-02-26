@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     // Variables
     [SerializeField] Transform destinationTransform;
     [SerializeField] Transform lockTransform;
+    [SerializeField] RectTransform targetTransform;
     [SerializeField] Difficulty difficulty;
     [SerializeField] bool inUnlockRange;
     [SerializeField] float unlockRange = 5.0f;
@@ -24,13 +25,18 @@ public class GameController : MonoBehaviour
 
     public bool RotationEnabled;
 
+    public int xVal;
+    public int yVal;
+
+    private Cursor cursor;
     private Vector3 TargetRotation;
     private float currentLockAngle = 0;
     private int locksRemaining;
 
     void Start()
     {
-        //PlaceDestination();
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+
         SetTotalLockCount();
         SetNewDestination();
         SetTargetPosition();
@@ -38,11 +44,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(CheckUnlockRange())
+            if (CheckUnlockRange())
             {
-                if(locksRemaining > 1)
+                if (locksRemaining > 1)
                     DecrementLocksRemaining();
                 else
                 {
@@ -111,31 +117,37 @@ public class GameController : MonoBehaviour
         locksRemaining--;
         SetNewDestination();
         SetTargetPosition();
+        ResetCursor();
+        lockTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        currentLockAngle = 0;
+        RotationEnabled = false;
+    }
+
+    private void ResetCursor()
+    {
+        cursor.isSelected = false;
+        cursor.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
     }
 
     private void SetTargetPosition()
     {
+        xVal = Random.Range(-210, 210);
+        yVal = Random.Range(-210, 210);
 
-    }
-
-    private void PlaceDestination()
-    {
-        //Easy = 90-179
-        //Med  = 180-269
-        //Hard = 270-350
-        switch (difficulty)
+        if ((xVal < 160 && xVal > -160) && (yVal < 160 && yVal > -160))
         {
-            case Difficulty.EASY:
-                TargetRotation = new Vector3(destinationTransform.rotation.x, destinationTransform.rotation.y,Random.Range(-90, -179));
-                break;
-            case Difficulty.MEDIUM:
-                TargetRotation = new Vector3(destinationTransform.rotation.x, destinationTransform.rotation.y, Random.Range(-180, -269));
-                break;
-            case Difficulty.HARD:
-                TargetRotation = new Vector3(destinationTransform.rotation.x, destinationTransform.rotation.y, Random.Range(-270, -350));
-                break;
+            //both are too far into minimum
+            int Decider = Random.Range(1, 4);
+            if (Decider == 1)
+                xVal = 160;
+            if (Decider == 2)
+                xVal = -160;
+            if (Decider == 3)
+                yVal = 160;
+            if (Decider == 4)
+                yVal = -160;
         }
-        destinationTransform.rotation = Quaternion.Euler(TargetRotation);
+        targetTransform.anchoredPosition = new Vector3(xVal, yVal, 0);
     }
 
 
