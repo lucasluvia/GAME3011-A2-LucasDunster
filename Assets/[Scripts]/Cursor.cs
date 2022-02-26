@@ -39,6 +39,8 @@ public class Cursor : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (gameController.gameEnd) return;
+
         isSelected = true;
         SetImageColour(NoHitColour);
     }

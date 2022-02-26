@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public Difficulty difficulty;
     public float unlockRange = 5.0f;
     public bool RotationEnabled;
+    public bool gameEnd;
 
 
     private Cursor cursor;
@@ -51,6 +52,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (gameEnd) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ResetCursor();
@@ -191,6 +194,9 @@ public class GameController : MonoBehaviour
 
     private void EndGameState(bool Result)
     {
+        gameEnd = true;
+        ResetCursor();
+
         if (Result)
         {
             locksRemaining = 0;
@@ -215,8 +221,9 @@ public class GameController : MonoBehaviour
         SetTotalLockCount();
         SetNewDestination();
         SetTargetPosition();
-
+        remainingPicks = 5;
         UpdateTextUI();
+        gameEnd = false;
     }
 
     //public void AddToPointTracker(int pointsToAdd)

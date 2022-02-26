@@ -604,8 +604,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Welcome!\nThis is the canvas that would normally contain gameplay UI.
-    \n\n[INSERT GAME INSTRUCTIONS]\n\nPress 'space' to switch between this canvas
-    and the minigame at any time. "
+    \n\nThe goal is to unlock the required locks by finding the sweet spot and following
+    it around as the lock rotates to line up the two lines. Click the cursor to move
+    it. Press the down arrow to lock in your choice.\n\nA harder difficulty means
+    you will have more locks to open, a higher skill means you will have a larger
+    buffer area around the correct unlock point.\n\nTo change the levels set the
+    dropdowns and click reset to start a new level.\n\nPress 'space' to switch between
+    this canvas and the minigame at any time. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2492,6 +2497,7 @@ MonoBehaviour:
   difficulty: 2
   unlockRange: 5
   RotationEnabled: 0
+  gameEnd: 0
   locksRemainingText: {fileID: 660989606}
   remainingPicksText: {fileID: 244452989}
 --- !u!1 &705507993
