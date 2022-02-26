@@ -21,7 +21,8 @@ public class GameController : MonoBehaviour
     [SerializeField] Difficulty difficulty;
     [SerializeField] bool inUnlockRange;
     [SerializeField] float unlockRange = 5.0f;
-    [SerializeField] float rotationSpeed = 15.0f;
+    
+    float rotationSpeed;
 
     public bool RotationEnabled;
 
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
     {
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
 
+        SetRotationSpeed();
         SetTotalLockCount();
         SetNewDestination();
         SetTargetPosition();
@@ -102,6 +104,22 @@ public class GameController : MonoBehaviour
                 break;
             case Difficulty.HARD:
                 locksRemaining = 5;
+                break;
+        }
+    }
+
+    private void SetRotationSpeed()
+    {
+        switch (difficulty)
+        {
+            case Difficulty.EASY:
+                rotationSpeed = 15;
+                break;
+            case Difficulty.MEDIUM:
+                rotationSpeed = 30;
+                break;
+            case Difficulty.HARD:
+                rotationSpeed = 50;
                 break;
         }
     }
