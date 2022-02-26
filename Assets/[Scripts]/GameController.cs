@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     public bool RotationEnabled;
     public bool gameEnd;
 
-
+    private float targetTime = 60.0f;
     private Cursor cursor;
     private Vector3 TargetRotation;
     private float currentLockAngle = 0;
@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
     [Header("UI Text")]
     [SerializeField] TextMeshProUGUI locksRemainingText;
     [SerializeField] TextMeshProUGUI remainingPicksText;
+    [SerializeField] TextMeshProUGUI timerText;
 
     void Start()
     {
@@ -81,6 +82,12 @@ public class GameController : MonoBehaviour
         }
 
         RotateLock();
+
+        targetTime -= Time.deltaTime;
+        timerText.text = ((int)targetTime).ToString();
+        if (targetTime <= 0)
+            EndGameState(false);
+
     }
 
     private void RotateLock()
@@ -195,6 +202,7 @@ public class GameController : MonoBehaviour
     private void EndGameState(bool Result)
     {
         gameEnd = true;
+        targetTime = 0;
         ResetCursor();
 
         if (Result)
@@ -224,6 +232,7 @@ public class GameController : MonoBehaviour
         remainingPicks = 5;
         UpdateTextUI();
         gameEnd = false;
+        targetTime = 60.0f; 
     }
 
     //public void AddToPointTracker(int pointsToAdd)
